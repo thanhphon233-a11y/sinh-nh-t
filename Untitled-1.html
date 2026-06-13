@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday Gala - Bé An 13/06/2009</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body { 
+            margin: 0; 
+            /* Nền Cute: Gradient hồng phấn nhẹ nhàng */
+            background: linear-gradient(135deg, #fff5f7 0%, #fde1e6 100%); 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Montserrat', sans-serif; 
+            color: #880e4f; /* Màu chữ hồng đậm cho dễ thương */
+            overflow: hidden; 
+        }
+
+        /* Khung kính sang trọng nhưng tone sáng */
+        .luxury-card { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(15px); 
+            padding: 60px 80px; 
+            border-radius: 40px; 
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            text-align: center; 
+            box-shadow: 0 20px 40px rgba(255, 182, 193, 0.4);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #d81b60; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 4px; }
+        .subtitle { color: #ec407a; font-weight: 300; margin-bottom: 50px; font-size: 1.2rem; letter-spacing: 2px; }
+
+        /* Thiết kế 3D cho phần quà */
+        .gift-wrapper { display: flex; gap: 40px; justify-content: center; }
+        .gift-item { 
+            width: 160px; padding: 40px 20px; 
+            background: #ffffff; 
+            border: 2px solid #ffccd5; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(255, 182, 193, 0.5);
+        }
+        .gift-item:hover { 
+            transform: translateY(-20px) scale(1.1) rotate(-5deg); 
+            box-shadow: 0 20px 40px rgba(255, 182, 193, 0.6);
+            border-color: #ff80ab;
+        }
+        .gift-icon { font-size: 4rem; display: block; margin-bottom: 15px; }
+
+        #final-message { display: none; text-align: center; }
+        .footer-note { margin-top: 50px; font-size: 0.8rem; opacity: 0.6; color: #d81b60; }
+    </style>
+</head>
+<body>
+
+    <div class="luxury-card" id="menu">
+        <h1>Quà Tặng Từ Ông Nam Chèo</h1>
+        <p class="subtitle">Dành riêng cho Bé An nhân ngày đặc biệt</p>
+        
+        <div class="gift-wrapper">
+            <div class="gift-item" onclick="reveal('🍻')"><span class="gift-icon">🍻</span><div class="gift-label">Quà Bí Ẩn</div></div>
+            <div class="gift-item" onclick="reveal('🎂')"><span class="gift-icon">🎂</span><div class="gift-label">Quà Bí Ẩn</div></div>
+            <div class="gift-item" onclick="reveal('🎁')"><span class="gift-icon">🎁</span><div class="gift-label">Quà Bí Ẩn</div></div>
+        </div>
+    </div>
+
+    <div id="final-message">
+        <h1 style="color: #d81b60;">Chúc Mừng Bé An!</h1>
+        <p style="font-size: 2rem; color: #880e4f;">1 Thùng Bia Sài Gòn Đã Sẵn Sàng Nhậu!</p>
+    </div>
+
+    <audio id="bgMusic" src="Sinh Nhật Của Xinh Nhất.mp3"></audio>
+
+    <script>
+        function reveal(icon) {
+            document.getElementById('bgMusic').play();
+            document.getElementById('menu').style.display = 'none';
+            document.getElementById('final-message').style.display = 'block';
+            
+            // Pháo hoa màu hồng & vàng gold cho hợp tone cute-sang trọng
+            confetti({ particleCount: 500, spread: 180, colors: ['#ff80ab', '#d4af37'] });
+
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.style.position = 'absolute';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.fontSize = '2.5rem';
+                el.innerHTML = icon;
+                document.body.appendChild(el);
+                
+                let y = -100;
+                let speed = Math.random() * 2 + 2;
+                let anim = setInterval(() => {
+                    y += speed;
+                    el.style.top = y + 'px';
+                    if (y > window.innerHeight) { el.remove(); clearInterval(anim); }
+                }, 20);
+            }, 600);
+        }
+    </script>
+    <div class="footer-note">© 2026 Ong Nam Cheo Premium Gift</div>
+</body>
+</html>
